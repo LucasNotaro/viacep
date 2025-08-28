@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { StyleSheet, Text, View, TextInput, Pressable } from "react-native";
- 
+import { StyleSheet, Text, View, Pressable } from "react-native";
+import { TextInput, Divider } from "react-native-paper";
+
 export default function App() {
   const [cep, setCep] = useState("");
   const [dadosCep, setDadosCep] = useState([]);
@@ -26,7 +27,8 @@ export default function App() {
       <Text style={styles.titulo}>Consulta de CEP</Text>
       <TextInput
         style={styles.input}
-        placeholder="Digite o CEP"
+        label="Digite o CEP"
+        placeholder="123456789"
         keyboardType="numeric"
         onChangeText={(text) => {
           setCep(text);
@@ -40,11 +42,40 @@ export default function App() {
         <Text style={styles.mensagem}>CEP não encontrado</Text>
       ) : (
         <View style={styles.resultado}>
-          <Text>CEP: {dadosCep.cep}</Text>
-          <Text>Logradouro: {dadosCep.logradouro}</Text>
-          <Text>Bairro: {dadosCep.bairro}</Text>
-          <Text>Cidade: {dadosCep.localidade}</Text>
-          <Text>Estado: {dadosCep.uf}</Text>
+          <TextInput
+            label="CEP"
+            value={dadosCep.cep}
+            editable={false}
+            style={{ marginBottom: 10 }}
+          />
+          <Divider />
+          <TextInput
+            label="Logradouro"
+            value={dadosCep.logradouro}
+            editable={false}
+            style={{ marginBottom: 10 }}
+          />
+          <Divider />
+          <TextInput
+            label="Bairro"
+            value={dadosCep.bairro}
+            editable={false}
+            style={{ marginBottom: 10 }}
+          />
+          <Divider />
+          <TextInput
+            label="Cidade"
+            value={dadosCep.localidade}
+            editable={false}
+            style={{ marginBottom: 10 }}
+          />
+          <Divider />
+          <TextInput
+            label="Estado"
+            value={dadosCep.uf}
+            editable={false}
+            style={{ marginBottom: 10 }}
+          />
         </View>
       )}
     </View>
@@ -67,12 +98,8 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 45,
-    borderColor: "#ccc",
-    borderWidth: 1,
     width: 250,
     marginBottom: 15,
-    paddingHorizontal: 10,
-    borderRadius: 5,
   },
   botao: {
     backgroundColor: "#007AFF",
@@ -96,6 +123,5 @@ const styles = StyleSheet.create({
     width: "100%",
     maxWidth: 300,
   },
-
 });
  
