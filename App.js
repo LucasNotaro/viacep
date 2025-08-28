@@ -1,18 +1,18 @@
 import { useState } from "react";
-import { StyleSheet, Text, View, Pressable } from "react-native";
-import { TextInput, Divider } from "react-native-paper";
+import { View } from "react-native";
+import { TextInput, Divider, Button, Text, Card, Surface, useTheme } from "react-native-paper";
 
 export default function App() {
   const [cep, setCep] = useState("");
   const [dadosCep, setDadosCep] = useState([]);
+  const theme = useTheme();
 
   const buscaCep = (value) => {
-    let url = `https://viacep.com.br/ws/${value}/json/`;
-    let formataCep = value.replace(/\D/g, "");
+    const url = `https://viacep.com.br/ws/${value}/json/`;
+    const formataCep = value.replace(/\D/g, "");
+
     fetch(url)
-      .then((response) => {
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
         console.log(data);
         setDadosCep(data);
@@ -23,105 +23,81 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>Consulta de CEP</Text>
+    <Surface style={{ flex: 1, padding: 20, justifyContent: "center", alignItems: "center" }}>
+      <Text variant="headlineMedium" style={{ marginBottom: 20, textAlign: "center" }}>
+        Consulta de CEP
+      </Text>
+
       <TextInput
-        style={styles.input}
+        mode="outlined"
         label="Digite o CEP"
         placeholder="123456789"
         keyboardType="numeric"
-        onChangeText={(text) => {
-          setCep(text);
-        }}
+        onChangeText={(text) => setCep(text)}
+        style={{ width: 250, marginBottom: 15 }}
       />
-      <Pressable style={styles.botao} onPress={() => buscaCep(cep)}>
-        <Text style={styles.textoBotao}>Buscar</Text>
-      </Pressable>
+
+      <Button 
+        mode="contained" 
+        onPress={() => buscaCep(cep)}
+        style={{ marginBottom: 20 }}
+      >
+        Buscar
+      </Button>
 
       {dadosCep.length === 0 ? (
-        <Text style={styles.mensagem}>CEP não encontrado</Text>
+        <Text variant="bodyLarge" style={{ color: theme.colors.onSurfaceVariant }}>
+          CEP não encontrado
+        </Text>
       ) : (
-        <View style={styles.resultado}>
-          <TextInput
-            label="CEP"
-            value={dadosCep.cep}
-            editable={false}
-            style={{ marginBottom: 10 }}
-          />
-          <Divider />
-          <TextInput
-            label="Logradouro"
-            value={dadosCep.logradouro}
-            editable={false}
-            style={{ marginBottom: 10 }}
-          />
-          <Divider />
-          <TextInput
-            label="Bairro"
-            value={dadosCep.bairro}
-            editable={false}
-            style={{ marginBottom: 10 }}
-          />
-          <Divider />
-          <TextInput
-            label="Cidade"
-            value={dadosCep.localidade}
-            editable={false}
-            style={{ marginBottom: 10 }}
-          />
-          <Divider />
-          <TextInput
-            label="Estado"
-            value={dadosCep.uf}
-            editable={false}
-            style={{ marginBottom: 10 }}
-          />
-        </View>
+        <Card style={{ width: "100%", maxWidth: 300 }}>
+          <Card.Content>
+            <TextInput
+              mode="outlined"
+              label="CEP"
+              value={dadosCep.cep}
+              editable={false}
+              style={{ marginBottom: 10 }}
+            />
+            <Divider style={{ marginVertical: 5 }} />
+
+            <TextInput
+              mode="outlined"
+              label="Logradouro"
+              value={dadosCep.logradouro}
+              editable={false}
+              style={{ marginBottom: 10 }}
+            />
+            <Divider style={{ marginVertical: 5 }} />
+
+            <TextInput
+              mode="outlined"
+              label="Bairro"
+              value={dadosCep.bairro}
+              editable={false}
+              style={{ marginBottom: 10 }}
+            />
+            <Divider style={{ marginVertical: 5 }} />
+
+            <TextInput
+              mode="outlined"
+              label="Cidade"
+              value={dadosCep.localidade}
+              editable={false}
+              style={{ marginBottom: 10 }}
+            />
+            <Divider style={{ marginVertical: 5 }} />
+
+            <TextInput
+              mode="outlined"
+              label="Estado"
+              value={dadosCep.uf}
+              editable={false}
+              style={{ marginBottom: 10 }}
+            />
+          </Card.Content>
+        </Card>
       )}
-    </View>
+    </Surface>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
-  },
-  titulo: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 20,
-    color: "#333",
-  },
-  input: {
-    height: 45,
-    width: 250,
-    marginBottom: 15,
-  },
-  botao: {
-    backgroundColor: "#007AFF",
-    padding: 12,
-    borderRadius: 6,
-    marginBottom: 20,
-  },
-  textoBotao: {
-    color: "white",
-    fontSize: 16,
-    fontWeight: "500",
-  },
-  mensagem: {
-    color: "#666",
-    fontSize: 16,
-  },
-  resultado: {
-    backgroundColor: "#f8f9fa",
-    padding: 15,
-    borderRadius: 8,
-    width: "100%",
-    maxWidth: 300,
-  },
-});
- 
