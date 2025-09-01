@@ -4,16 +4,10 @@ App React Native para consultar endereços via CEP usando a API do ViaCEP.
 
 ## Imagens
 
-<div style="display: flex; gap: 20px; align-items: center;">
-  <div>
-    <h4>Tela para inserir CEP</h4>
-    <img src="docs/images/tela-inicial.jpeg" width="300" alt="Tela Inicial">
-  </div>
-  <div>
-    <h4>Resultado da consulta</h4>
-    <img src="docs/images/tela-resultado-consulta.jpeg" width="300" alt="Resultado da Consulta">
-  </div>
-</div>
+<p>
+  <img src="docs/images/tela-inicial.jpeg" width="300" alt="Tela Inicial" hspace="15">
+  <img src="docs/images/tela-resultado-consulta.jpeg" width="300" alt="Resultado da Consulta" hspace="15">
+</p>
 
 ## Como usar
 
